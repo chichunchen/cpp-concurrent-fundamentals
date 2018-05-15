@@ -1,3 +1,9 @@
+//
+// Created by 陳其駿 on 5/15/18.
+//
+
+#include "lamport_bakery_test.h"
+
 #include <iostream>
 #include <thread>
 #include <vector>
@@ -7,43 +13,40 @@
 #include "tas_lock.h"
 #include "tatas_lock.h"
 #include "Timer.h"
-#include "lamport_bakery_test.h"
 
 #define THREAD_NUM      5
 #define NODE_NUM        3000
 
 using namespace std;
 
-//std::mutex vec_mutex_lock;
-//centralized_locks::Test_and_set_lock vec_mutex_lock;
-//centralized_locks::Test_and_test_and_set_lock vec_mutex_lock;
-centralized_locks::Ticket_lock vec_mutex_lock;
+centralized_locks::lamport_bakery_lock *vec_lock;
 
-void test_push(vector<int> *v, int tid) {
+void test_push_lamport(vector<int> *v, int tid) {
     for (int i = 0; i < NODE_NUM; i++) {
-        vec_mutex_lock.lock();
+        vec_lock->lock(tid);
         v->push_back(i);
-        vec_mutex_lock.unlock();
+        vec_lock->unlock(tid);
     }
 }
 
-void test_pop(vector<int> *v, int tid) {
+void test_pop_lamport(vector<int> *v, int tid) {
     for (int i = 0; i < NODE_NUM; i++) {
-        vec_mutex_lock.lock();
+        vec_lock->lock(tid);
         v->pop_back();
-        vec_mutex_lock.unlock();
+        vec_lock->unlock(tid);
     }
 }
 
-void test_normal_api_lock() {
+void lamport_bakery_test() {
     thread thread_arr[THREAD_NUM];
 
     auto *vec = new vector<int>();
+    vec_lock = new centralized_locks::lamport_bakery_lock(THREAD_NUM);
 
     auto timer = Timer("vec push");
     timer.start();
     for (int i = 0; i < THREAD_NUM; i++) {
-        thread_arr[i] = thread(test_push, vec, i);
+        thread_arr[i] = thread(test_push_lamport, vec, i);
     }
     for (int i = 0; i < THREAD_NUM; ++i) {
         thread_arr[i].join();
@@ -55,7 +58,7 @@ void test_normal_api_lock() {
     timer.reset();
     timer.start();
     for (int i = 0; i < THREAD_NUM; i++) {
-        thread_arr[i] = thread(test_pop, vec, i);
+        thread_arr[i] = thread(test_pop_lamport, vec, i);
     }
     for (auto &i : thread_arr) {
         i.join();
@@ -64,11 +67,4 @@ void test_normal_api_lock() {
     timer.print();
 
     assert(vec->empty());
-}
-
-int main() {
-//    lamport_bakery_test();
-
-    test_normal_api_lock();
-    return 0;
 }

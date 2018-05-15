@@ -11,7 +11,6 @@
 #include <iostream>
 
 namespace centralized_locks {
-    // TODO deadlock in second loop in acquire
     class lamport_bakery_lock {
     private:
         std::atomic<bool> *choosing;
@@ -41,7 +40,7 @@ namespace centralized_locks {
         void lock(int self) {
             choosing[self].store(true);
             int max = 1 + max_number();
-            std::cout << "max: " << max << std::endl;
+//            std::cout << "max: " << max << std::endl;
             number[self].store(max);
             choosing[self].store(false);
             for (int i = 0; i < thread_num; i++) {
@@ -49,7 +48,8 @@ namespace centralized_locks {
                 int t;
                 while (true) {
                     t = number[i].load();
-                    if (t == 0 || (t >= max && i >= self))
+                    // (t, i) >= (m, self)
+                    if (t == 0 || (t > max || (t == max && i >= self)))
                         break;
                 }
             }
