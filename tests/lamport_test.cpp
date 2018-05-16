@@ -17,8 +17,8 @@
 
 using namespace std;
 
-//centralized_locks::lamport_bakery_lock *vec_lock;
-centralized_locks::lamport_fast_lock *vec_lock;
+centralized_locks::lamport_bakery_lock *vec_lock;
+//centralized_locks::lamport_fast_lock *vec_lock;
 
 void test_push_lamport(vector<int> *v, int tid) {
     for (int i = 0; i < NODE_NUM; i++) {
@@ -40,8 +40,8 @@ void lamport_bakery_test() {
     thread thread_arr[THREAD_NUM];
 
     auto *vec = new vector<int>();
-//    vec_lock = new centralized_locks::lamport_bakery_lock(THREAD_NUM);
-    vec_lock = new centralized_locks::lamport_fast_lock(THREAD_NUM);
+    vec_lock = new centralized_locks::lamport_bakery_lock(THREAD_NUM);
+//    vec_lock = new centralized_locks::lamport_fast_lock(THREAD_NUM);
 
     auto timer = Timer("vec push");
     timer.start();

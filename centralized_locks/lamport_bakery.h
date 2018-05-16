@@ -38,6 +38,11 @@ namespace centralized_locks {
             }
         }
 
+        ~lamport_bakery_lock() {
+            delete[] choosing;
+            delete[] number;
+        }
+
         void lock(int self) {
             choosing[self].store(true);
             int max = 1 + max_number();

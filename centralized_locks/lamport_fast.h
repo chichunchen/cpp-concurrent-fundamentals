@@ -26,18 +26,24 @@ namespace centralized_locks {
             }
         }
 
+        ~lamport_fast_lock() {
+            delete[] trying;
+        }
+
         void lock(int self) {
             while (true) {
                 trying[self].store(true);
                 x.store(self);
 
-                // y has been modified
+                // after write x, immediately check if y has been modified
                 if (y.load() != LOWER) {
                     trying[self].store(false);
                     while (y.load() != LOWER);              // spin
                     continue;                               // go back to top of loop
                 }
                 y.store(self);
+
+                // after write y, immediately check if x has been modified
                 if (x.load() != self) {
                     trying[self].store(false);
                     for (int i = 0; i < thread_num; i++) {

@@ -16,6 +16,9 @@ add_executable(concurrent_toolkits_cpp
         utilities/Timer.h
         tests/concurrent_vector_with_lock.cpp centralized_locks/ticket_lock.h tests/lamport_test.cpp tests/lamport_test.h centralized_locks/lamport_fast.h)
 
-TARGET_LINK_LIBRARIES( concurrent_toolkits_cpp
-		pthread
-		)
+TARGET_LINK_LIBRARIES(concurrent_toolkits_cpp
+        pthread
+        )
+
+#set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_BUILD_TYPE Debug)
