@@ -6,6 +6,7 @@
 #define CONCURRENT_TOOLKITS_CPP_TICKET_LOCK_H
 
 #include <atomic>
+
 namespace centralized_locks {
 
     struct Ticket_lock {

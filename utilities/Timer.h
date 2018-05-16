@@ -2,8 +2,8 @@
 // Created by 陳其駿 on 5/15/18.
 //
 
-#ifndef MCS_LOCK_TIMER_H
-#define MCS_LOCK_TIMER_H
+#ifndef CONCURRENT_TOOLKITS_CPP_TIMER_H
+#define CONCURRENT_TOOLKITS_CPP_TIMER_H
 
 #include <iostream>
 #include <string>
@@ -25,7 +25,7 @@ private:
     bool valid;
 
 public:
-    Timer(std::string name) : name(std::move(name)), active(false), valid(false), total(0), last(0) {}
+    explicit Timer(std::string name) : name(std::move(name)), active(false), valid(false), total(0), last(0) {}
 
     // TODO should reset total and last
     void reset() {
@@ -56,4 +56,4 @@ public:
 };
 
 
-#endif //MCS_LOCK_TIMER_H
+#endif //CONCURRENT_TOOLKITS_CPP_TIMER_H

@@ -11,4 +11,4 @@ add_executable(concurrent_toolkits_cpp
         centralized_locks/tas_lock.h
         centralized_locks/tatas_lock.h
         utilities/Timer.h
-        tests/concurrent_vector_with_lock.cpp centralized_locks/ticket_lock.h tests/lamport_bakery_test.cpp tests/lamport_bakery_test.h)
+        tests/concurrent_vector_with_lock.cpp centralized_locks/ticket_lock.h tests/lamport_test.cpp tests/lamport_test.h centralized_locks/lamport_fast.h)

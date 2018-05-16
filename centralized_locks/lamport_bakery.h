@@ -11,6 +11,7 @@
 #include <iostream>
 
 namespace centralized_locks {
+
     class lamport_bakery_lock {
     private:
         std::atomic<bool> *choosing;
@@ -40,7 +41,6 @@ namespace centralized_locks {
         void lock(int self) {
             choosing[self].store(true);
             int max = 1 + max_number();
-//            std::cout << "max: " << max << std::endl;
             number[self].store(max);
             choosing[self].store(false);
             for (int i = 0; i < thread_num; i++) {
@@ -61,6 +61,7 @@ namespace centralized_locks {
             std::atomic_thread_fence(std::memory_order_release);
         }
     };
+
 }
 
 #endif

@@ -7,10 +7,10 @@
 #include "tas_lock.h"
 #include "tatas_lock.h"
 #include "Timer.h"
-#include "lamport_bakery_test.h"
+#include "lamport_test.h"
 
-#define THREAD_NUM      5
-#define NODE_NUM        3000
+#define THREAD_NUM      10
+#define NODE_NUM        10000
 
 using namespace std;
 
@@ -52,6 +52,8 @@ void test_normal_api_lock() {
     timer.print();
 
     cout << "total elements: " << vec->size() << endl;
+    assert(vec->size() == THREAD_NUM * NODE_NUM);
+
     timer.reset();
     timer.start();
     for (int i = 0; i < THREAD_NUM; i++) {
@@ -67,8 +69,7 @@ void test_normal_api_lock() {
 }
 
 int main() {
-//    lamport_bakery_test();
-
-    test_normal_api_lock();
+    lamport_bakery_test();
+//    test_normal_api_lock();
     return 0;
 }
