@@ -7,5 +7,6 @@
 
 void lamport_bakery_test();
 
+void lamport_fast_test();
 
 #endif //CONCURRENT_TOOLKITS_CPP_LAMPORT_BAKERY_TEST_H

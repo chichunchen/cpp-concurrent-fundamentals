@@ -13,8 +13,15 @@ add_executable(concurrent_toolkits_cpp
         centralized_locks/lamport_bakery.h
         centralized_locks/tas_lock.h
         centralized_locks/tatas_lock.h
+        centralized_locks/ticket_lock.h
+        centralized_locks/lamport_fast.h
+        scalable_locks/mcs_lock.h
         utilities/Timer.h
-        tests/concurrent_vector_with_lock.cpp centralized_locks/ticket_lock.h tests/lamport_test.cpp tests/lamport_test.h centralized_locks/lamport_fast.h)
+        tests/concurrent_vector_with_lock.cpp
+        tests/lamport_test.cpp
+        tests/lamport_test.h
+        tests/mcs_test.cpp
+        tests/mcs_test.h)
 
 TARGET_LINK_LIBRARIES(concurrent_toolkits_cpp
         pthread

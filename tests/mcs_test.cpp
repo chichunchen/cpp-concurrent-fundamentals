@@ -1,49 +1,54 @@
+//
+// Created by 陳其駿 on 5/16/18.
+//
+
+#include "mcs_test.h"
+
 #include <iostream>
 #include <thread>
 #include <vector>
 #include <mutex>
-#include <ticket_lock.h>
-#include "tas_lock.h"
-#include "tatas_lock.h"
 #include "Timer.h"
-#include "lamport_test.h"
-#include "mcs_test.h"
+#include "../scalable_locks/mcs_lock.h"
 
 #define THREAD_NUM      20
 #define NODE_NUM        1000
 
 using namespace std;
 
-std::mutex vec_mutex_lock;
-//centralized_locks::Test_and_set_lock vec_mutex_lock;
-//centralized_locks::Test_and_test_and_set_lock vec_mutex_lock;
-//centralized_locks::Ticket_lock vec_mutex_lock;
+scalable_locks::mcs_lock *mcs_lock;
 
-static void test_push(vector<int> *v, int tid) {
+static void test_push_mcs(vector<int> *v, int tid) {
+    scalable_locks::_qnode q;
+
     for (int i = 0; i < NODE_NUM; i++) {
-        vec_mutex_lock.lock();
+        mcs_lock->lock(&q);
         v->push_back(i);
-        vec_mutex_lock.unlock();
+        mcs_lock->unlock(&q);
     }
 }
 
-static void test_pop(vector<int> *v, int tid) {
+static void test_pop_mcs(vector<int> *v, int tid) {
+    scalable_locks::_qnode q;
+
     for (int i = 0; i < NODE_NUM; i++) {
-        vec_mutex_lock.lock();
+//        cout << "tid: " << tid << ", address: " << &q << endl;
+        mcs_lock->lock(&q);
         v->pop_back();
-        vec_mutex_lock.unlock();
+        mcs_lock->unlock(&q);
     }
 }
 
-void test_normal_api_lock() {
+void mcs_test() {
     thread thread_arr[THREAD_NUM];
 
     auto *vec = new vector<int>();
+    mcs_lock = new scalable_locks::mcs_lock();
 
-    auto timer = Timer("vec push");
+    auto timer = Timer("mcs_test");
     timer.start();
     for (int i = 0; i < THREAD_NUM; i++) {
-        thread_arr[i] = thread(test_push, vec, i);
+        thread_arr[i] = thread(test_push_mcs, vec, i);
     }
     for (auto &i : thread_arr) {
         i.join();
@@ -57,7 +62,7 @@ void test_normal_api_lock() {
     timer.reset();
     timer.start();
     for (int i = 0; i < THREAD_NUM; i++) {
-        thread_arr[i] = thread(test_pop, vec, i);
+        thread_arr[i] = thread(test_pop_mcs, vec, i);
     }
     for (auto &i : thread_arr) {
         i.join();
@@ -66,12 +71,4 @@ void test_normal_api_lock() {
     timer.print();
 
     assert(vec->empty());
-}
-
-int main() {
-//    lamport_bakery_test();
-//    lamport_fast_test();
-//    test_normal_api_lock();
-    mcs_test();
-    return 0;
 }

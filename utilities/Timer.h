@@ -49,9 +49,10 @@ public:
     }
 
     void print() {
-        std::time_t end_time = std::chrono::system_clock::to_time_t(end);
-        std::cout << "finished computation at " << std::ctime(&end_time)
-                  << "elapsed time: " << last.count() << "s\n";
+//        std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+//        std::cout << "finished computation at " << std::ctime(&end_time)
+//                  << "elapsed time: " << last.count() << "s\n";
+        std::cout << "[" << name << "] elapsed " << last.count() << "s\n";
     }
 };
 
