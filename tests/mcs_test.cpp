@@ -41,31 +41,34 @@ static void test_pop_mcs(vector<int> *v, int tid) {
 
 void mcs_test() {
     thread thread_arr[THREAD_NUM];
-
-    auto *vec = new vector<int>();
-    mcs_lock = new scalable_locks::mcs_lock();
-
     auto timer = Timer("mcs_test");
+
     timer.start();
-    for (int i = 0; i < THREAD_NUM; i++) {
-        thread_arr[i] = thread(test_push_mcs, vec, i);
+    auto *vec = new vector<int>();
+    {
+        mcs_lock = new scalable_locks::mcs_lock();
+        for (int i = 0; i < THREAD_NUM; i++) {
+            thread_arr[i] = thread(test_push_mcs, vec, i);
+        }
+        for (auto &i : thread_arr) {
+            i.join();
+        }
     }
-    for (auto &i : thread_arr) {
-        i.join();
-    }
+//    cout << "total elements: " << vec->size() << endl;
+    assert(vec->size() == THREAD_NUM * NODE_NUM);
     timer.stop();
     timer.print();
 
-//    cout << "total elements: " << vec->size() << endl;
-    assert(vec->size() == THREAD_NUM * NODE_NUM);
-
     timer.reset();
     timer.start();
-    for (int i = 0; i < THREAD_NUM; i++) {
-        thread_arr[i] = thread(test_pop_mcs, vec, i);
-    }
-    for (auto &i : thread_arr) {
-        i.join();
+    {
+        mcs_lock = new scalable_locks::mcs_lock();
+        for (int i = 0; i < THREAD_NUM; i++) {
+            thread_arr[i] = thread(test_pop_mcs, vec, i);
+        }
+        for (auto &i : thread_arr) {
+            i.join();
+        }
     }
     timer.stop();
     timer.print();

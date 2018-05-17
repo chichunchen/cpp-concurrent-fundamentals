@@ -11,7 +11,7 @@
 namespace scalable_locks {
 
     struct _qnode {
-        std::atomic<_qnode*> next;
+        std::atomic<_qnode *> next;
         std::atomic<bool> waiting;
 
         _qnode() : next(nullptr), waiting(false) {};
@@ -19,14 +19,12 @@ namespace scalable_locks {
 
     class mcs_lock {
     private:
-        std::atomic<_qnode*> tail;
+        std::atomic<_qnode *> tail;
 
     public:
         mcs_lock() : tail(nullptr) {}
 
         void lock(_qnode *p) {
-//            std::cout << ", address: " << &p << std::endl;
-
             p->next = nullptr;
             p->waiting = true;
 
@@ -35,16 +33,15 @@ namespace scalable_locks {
             if (prev) {
                 // if the list was not previously empty, it sets the predecessor's next
                 // field to refer to its own local node
-                prev->next.store(p);
-                while (p->waiting.load());      // spin
+                prev->next.store(p, std::memory_order_release);
+                while (p->waiting.load(std::memory_order_acquire));      // spin
             }
-
-            std::atomic_thread_fence(std::memory_order_acquire);
         }
 
         void unlock(_qnode *p) {
             _qnode *succ = p->next.load();
-            _qnode *old_p = p;
+            _qnode *old_p = p;                  // don't know why the CAS in the while loop below change p even if the
+                                                // execution fails
 
             // check whether this thread's local node's next field is null
             if (!succ) {
@@ -54,11 +51,10 @@ namespace scalable_locks {
                 // if race condition happens then it means other threads are also trying to
                 // acquire the lock, so spin until it finishes
                 while (!succ)
-                    succ = old_p->next.load();
+                    succ = old_p->next.load(std::memory_order_acquire);
             }
 
-            succ->waiting.store(false);
-            std::atomic_thread_fence(std::memory_order_release);
+            succ->waiting.store(false, std::memory_order_release);
         }
     };
 
