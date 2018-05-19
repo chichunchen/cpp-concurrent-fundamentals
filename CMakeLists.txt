@@ -16,7 +16,7 @@ add_executable(concurrent_toolkits_cpp
         centralized_locks/ticket_lock.h
         centralized_locks/lamport_fast.h
         scalable_locks/mcs_lock.h
-        utilities/Timer.h
+        utilities/PreciseTimer.h
         tests/tests.cpp
         tests/lamport_test.cpp
         tests/lamport_test.h

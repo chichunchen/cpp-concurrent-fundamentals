@@ -12,9 +12,7 @@
 #include <utility>
 #include <cassert>
 
-using std::chrono::system_clock;
-
-class Timer {
+class PreciseTimer {
 private:
     std::string name;
     std::chrono::time_point<std::chrono::high_resolution_clock> begin;
@@ -25,23 +23,25 @@ private:
     bool valid;
 
 public:
-    explicit Timer(std::string name) : name(std::move(name)), active(false), valid(false), total(0), last(0) {}
+    explicit PreciseTimer(std::string name) : name(std::move(name)), active(false), valid(false), total(0), last(0) {}
 
     // TODO should reset total and last
     void reset() {
         assert(!active);
+        total = std::chrono::milliseconds::zero();
+        last = std::chrono::milliseconds::zero();
     }
 
     void start() {
         assert(!active);
-        begin = std::chrono::system_clock::now();
+        begin = std::chrono::high_resolution_clock::now();
         active = true;
         valid = false;
     }
 
     void stop() {
         assert(active);
-        end = std::chrono::system_clock::now();
+        end = std::chrono::high_resolution_clock::now();
         last = end - begin;
         total += last;
         active = false;

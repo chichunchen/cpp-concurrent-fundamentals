@@ -3,6 +3,8 @@
 //
 
 #include "lamport_test.h"
+#include <algorithm>
+#include <functional>
 
 using namespace std;
 
@@ -31,7 +33,7 @@ static void lamport_test(const string &name) {
     auto *vec = new vector<int>();
     auto *lamport_vec_lock = new lock(THREAD_NUM);
 
-    auto timer = Timer(name);
+    auto timer = PreciseTimer(name);
     timer.start();
     for (int i = 0; i < THREAD_NUM; i++) {
         thread_arr[i] = thread(test_push<lock>, vec, i, lamport_vec_lock);

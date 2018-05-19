@@ -8,7 +8,7 @@
 #include <thread>
 #include <vector>
 #include <mutex>
-#include "Timer.h"
+#include "PreciseTimer.h"
 #include "../scalable_locks/mcs_lock.h"
 #include "config.h"
 
@@ -39,7 +39,7 @@ static void test_pop_mcs(vector<int> *v, int tid) {
 
 void mcs_test() {
     thread thread_arr[THREAD_NUM];
-    auto timer = Timer("mcs_test");
+    auto timer = PreciseTimer("mcs_test");
 
     timer.start();
     auto *vec = new vector<int>();

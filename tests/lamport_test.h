@@ -13,7 +13,7 @@
 #include <mutex>
 #include "lamport_bakery.h"
 #include "lamport_fast.h"
-#include "Timer.h"
+#include "PreciseTimer.h"
 #include "config.h"
 
 void lamport_test_driver();

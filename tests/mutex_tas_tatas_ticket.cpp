@@ -28,7 +28,7 @@ static void test_mutex_tas_tatas_ticket(const std::string &name) {
 
     auto *vec = new std::vector<int>();
     auto *vec_mutex_lock = new lock;
-    auto timer = Timer(name);
+    auto timer = PreciseTimer(name);
 
     timer.start();
     for (auto &i : thread_arr) {

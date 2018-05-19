@@ -8,7 +8,7 @@
 #include <vector>
 #include <thread>
 #include "config.h"
-#include "Timer.h"
+#include "PreciseTimer.h"
 #include <mutex>
 #include "tas_lock.h"
 #include "tatas_lock.h"
