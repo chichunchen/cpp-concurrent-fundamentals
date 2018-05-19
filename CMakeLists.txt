@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(concurrent_toolkits_cpp)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
 
 include_directories(centralized_locks)
 include_directories(utilities)
@@ -21,7 +22,7 @@ add_executable(concurrent_toolkits_cpp
         tests/lamport_test.cpp
         tests/lamport_test.h
         tests/mcs_test.cpp
-        tests/mcs_test.h tests/mutex_tas_tatas_ticket.cpp tests/mutex_tas_tatas_ticket.h tests/config.h)
+        tests/mcs_test.h tests/mutex_tas_tatas_ticket.cpp tests/mutex_tas_tatas_ticket.h tests/config.h tests/sssp_barrier.cpp tests/sssp_barrier.h tests/simplegraph_atomic.h)
 
 TARGET_LINK_LIBRARIES(concurrent_toolkits_cpp
         pthread

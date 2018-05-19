@@ -25,7 +25,6 @@ private:
 public:
     explicit PreciseTimer(std::string name) : name(std::move(name)), active(false), valid(false), total(0), last(0) {}
 
-    // TODO should reset total and last
     void reset() {
         assert(!active);
         total = std::chrono::milliseconds::zero();
