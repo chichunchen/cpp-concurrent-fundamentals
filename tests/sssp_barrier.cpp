@@ -36,7 +36,7 @@ void sssp(SimpleCSRGraphUII g, int tid, int* rounds_ptr) {
     for (size_t i = start; i < end; i++) {
         g.node_wt[i] = (i == src) ? 0 : INF;
     }
-//    pthread_barrier_wait(&mybarrier);
+    pthread_barrier_wait(&mybarrier);
 
     // sssp_round
     for(rounds = 0; rounds < total_nodes - 1; rounds++) {
@@ -73,9 +73,9 @@ void sssp(SimpleCSRGraphUII g, int tid, int* rounds_ptr) {
 
         pthread_barrier_wait(&mybarrier);
         if(!changed) break;
-//        pthread_barrier_wait(&mybarrier);
+        pthread_barrier_wait(&mybarrier);
         changed = false;
-//        pthread_barrier_wait(&mybarrier);
+        pthread_barrier_wait(&mybarrier);
     }
 
     if (tid == 0) *rounds_ptr = rounds;
@@ -122,10 +122,10 @@ void sssp_barrier_driver() {
     PreciseTimer t("sssp");
 
     int src = 0;
-    threadNum = stoi(argv[3]);
+    threadNum = THREAD_NUM;
 
     thread thread_arr[threadNum];
-//    pthread_barrier_init(&mybarrier, NULL, threadNum);
+    pthread_barrier_init(&mybarrier, NULL, threadNum);
 
     t.start();
 
@@ -142,7 +142,7 @@ void sssp_barrier_driver() {
 
     t.stop();
 
-//    pthread_barrier_destroy(&mybarrier);
+    pthread_barrier_destroy(&mybarrier);
 
     printf("%d rounds\n", rounds); /* parallel versions may have a different number of rounds */
     t.print();
