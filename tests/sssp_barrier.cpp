@@ -14,13 +14,19 @@
 #include "simplegraph_atomic.h"
 #include "PreciseTimer.h"
 #include "config.h"
+#include "../barriers/centralized_barrier.hpp"
 
 using namespace std;
 
 const int INF = INT_MAX;
 int threadNum = 1;
 bool changed = false;
+
+#ifdef __APPLE__
+centralized_barrier *mybarrier;
+#elif __linux__
 pthread_barrier_t mybarrier;
+#endif
 
 void sssp(SimpleCSRGraphUII g, int tid, int* rounds_ptr) {
     size_t total_nodes = g.num_nodes;
@@ -36,7 +42,13 @@ void sssp(SimpleCSRGraphUII g, int tid, int* rounds_ptr) {
     for (size_t i = start; i < end; i++) {
         g.node_wt[i] = (i == src) ? 0 : INF;
     }
-    pthread_barrier_wait(&mybarrier);
+
+//#ifdef __APPLE__
+//    mybarrier->wait(tid);
+//#elif __linux__
+//    pthread_barrier_wait(&mybarrier);
+//#endif
+    mybarrier->wait(tid);
 
     // sssp_round
     for(rounds = 0; rounds < total_nodes - 1; rounds++) {
@@ -71,11 +83,26 @@ void sssp(SimpleCSRGraphUII g, int tid, int* rounds_ptr) {
             }
         }
 
-        pthread_barrier_wait(&mybarrier);
+//#ifdef __APPLE__
+//        mybarrier->wait(tid);
+//#elif __linux__
+//        pthread_barrier_wait(&mybarrier);
+//#endif
+        mybarrier->wait(tid);
         if(!changed) break;
-        pthread_barrier_wait(&mybarrier);
+//#ifdef __APPLE__
+//        mybarrier->wait(tid);
+//#elif __linux__
+//        pthread_barrier_wait(&mybarrier);
+//#endif
+        mybarrier->wait(tid);
         changed = false;
-        pthread_barrier_wait(&mybarrier);
+//#ifdef __APPLE__
+//        mybarrier->wait(tid);
+//#elif __linux__
+//        pthread_barrier_wait(&mybarrier);
+//#endif
+        mybarrier->wait(tid);
     }
 
     if (tid == 0) *rounds_ptr = rounds;
@@ -125,7 +152,12 @@ void sssp_barrier_driver() {
     threadNum = THREAD_NUM;
 
     thread thread_arr[threadNum];
+
+#ifdef __APPLE__
+    mybarrier = new centralized_barrier(threadNum);
+#elif __linux__
     pthread_barrier_init(&mybarrier, NULL, threadNum);
+#endif
 
     t.start();
 
@@ -142,7 +174,9 @@ void sssp_barrier_driver() {
 
     t.stop();
 
+#ifdef __linux__
     pthread_barrier_destroy(&mybarrier);
+#endif
 
     printf("%d rounds\n", rounds); /* parallel versions may have a different number of rounds */
     t.print();
