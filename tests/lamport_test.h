@@ -5,8 +5,17 @@
 #ifndef CONCURRENT_TOOLKITS_CPP_LAMPORT_BAKERY_TEST_H
 #define CONCURRENT_TOOLKITS_CPP_LAMPORT_BAKERY_TEST_H
 
-void lamport_bakery_test();
+#include <string>
 
-void lamport_fast_test();
+#include <iostream>
+#include <thread>
+#include <vector>
+#include <mutex>
+#include "lamport_bakery.h"
+#include "lamport_fast.h"
+#include "Timer.h"
+#include "config.h"
+
+void lamport_test_driver();
 
 #endif //CONCURRENT_TOOLKITS_CPP_LAMPORT_BAKERY_TEST_H

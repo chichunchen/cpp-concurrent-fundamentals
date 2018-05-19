@@ -17,11 +17,11 @@ add_executable(concurrent_toolkits_cpp
         centralized_locks/lamport_fast.h
         scalable_locks/mcs_lock.h
         utilities/Timer.h
-        tests/concurrent_vector_with_lock.cpp
+        tests/tests.cpp
         tests/lamport_test.cpp
         tests/lamport_test.h
         tests/mcs_test.cpp
-        tests/mcs_test.h)
+        tests/mcs_test.h tests/mutex_tas_tatas_ticket.cpp tests/mutex_tas_tatas_ticket.h tests/config.h)
 
 TARGET_LINK_LIBRARIES(concurrent_toolkits_cpp
         pthread

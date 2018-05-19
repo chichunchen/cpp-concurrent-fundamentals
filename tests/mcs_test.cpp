@@ -10,9 +10,7 @@
 #include <mutex>
 #include "Timer.h"
 #include "../scalable_locks/mcs_lock.h"
-
-#define THREAD_NUM      20
-#define NODE_NUM        1000
+#include "config.h"
 
 using namespace std;
 
@@ -54,7 +52,7 @@ void mcs_test() {
             i.join();
         }
     }
-//    cout << "total elements: " << vec->size() << endl;
+
     assert(vec->size() == THREAD_NUM * NODE_NUM);
     timer.stop();
     timer.print();

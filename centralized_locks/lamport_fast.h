@@ -19,7 +19,7 @@ namespace centralized_locks {
         std::atomic<int> y;
 
     public:
-        explicit lamport_fast_lock(int thread_num) : thread_num(thread_num), x({0}), y({LOWER}) {
+        explicit lamport_fast_lock(int thread_num) : thread_num(thread_num), x(0), y(LOWER) {
             trying = new std::atomic<bool>[thread_num];
             for (int i = 0; i < thread_num; i++) {
                 trying[i] = false;

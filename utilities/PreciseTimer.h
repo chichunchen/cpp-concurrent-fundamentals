@@ -17,8 +17,8 @@ using std::chrono::system_clock;
 class Timer {
 private:
     std::string name;
-    system_clock::time_point begin;
-    system_clock::time_point end;
+    std::chrono::time_point<std::chrono::high_resolution_clock> begin;
+    std::chrono::time_point<std::chrono::high_resolution_clock> end;
     std::chrono::duration<double> total;
     std::chrono::duration<double> last;
     bool active;
@@ -49,9 +49,6 @@ public:
     }
 
     void print() {
-//        std::time_t end_time = std::chrono::system_clock::to_time_t(end);
-//        std::cout << "finished computation at " << std::ctime(&end_time)
-//                  << "elapsed time: " << last.count() << "s\n";
         std::cout << "[" << name << "] elapsed " << last.count() << "s\n";
     }
 };
