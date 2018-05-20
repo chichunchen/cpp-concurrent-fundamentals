@@ -1,17 +1,18 @@
 //
-// Created by 陳其駿 on 5/15/18.
+// Created by 陳其駿 on 5/20/18.
 //
 
-#ifndef CONCURRENT_TOOLKITS_CPP_TICKET_LOCK_H
-#define CONCURRENT_TOOLKITS_CPP_TICKET_LOCK_H
+#ifndef CONCURRENT_TOOLKITS_CPP_TICKET_EXP_HPP
+#define CONCURRENT_TOOLKITS_CPP_TICKET_EXP_HPP
 
 #include <atomic>
 
-namespace centralized_locks {
+namespace scalable_locks {
 
     struct Ticket_lock {
         std::atomic<int> next_ticket;
         std::atomic<int> now_serving;
+        const int base = 5;
 
         Ticket_lock() : next_ticket(0), now_serving(0) {}
 
@@ -22,6 +23,9 @@ namespace centralized_locks {
                 if (ns == my_ticket) {
                     break;
                 }
+
+                int pause = base * (my_ticket - ns);
+                for (int i = 0; i < pause; i++);
             }
             std::atomic_thread_fence(std::memory_order_release);
         }
@@ -34,4 +38,4 @@ namespace centralized_locks {
 
 }
 
-#endif
+#endif //CONCURRENT_TOOLKITS_CPP_TICKET_EXP_HPP

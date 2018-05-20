@@ -62,3 +62,9 @@ void test_mutex_tas_tatas_ticket_driver() {
     test_mutex_tas_tatas_ticket<centralized_locks::Test_and_test_and_set_lock>("test and test and set lock");
     test_mutex_tas_tatas_ticket<centralized_locks::Ticket_lock>("ticket lock");
 }
+
+void test_scalable_tas_tatas_ticket_driver() {
+    test_mutex_tas_tatas_ticket<scalable_locks::Test_and_set_lock>("tas lock with exponential backoff");
+    test_mutex_tas_tatas_ticket<scalable_locks::Test_and_test_and_set_lock>("tatas lock with exponential backoff");
+    test_mutex_tas_tatas_ticket<scalable_locks::Ticket_lock>("ticket lock with exponential backoff");
+}

@@ -6,6 +6,6 @@
 #define CONCURRENT_TOOLKITS_CPP_CONFIG_H
 
 #define THREAD_NUM      100
-#define NODE_NUM        200
+#define NODE_NUM        1000
 
 #endif //CONCURRENT_TOOLKITS_CPP_CONFIG_H

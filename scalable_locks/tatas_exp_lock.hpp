@@ -1,24 +1,34 @@
 //
-// Created by 陳其駿 on 5/15/18.
+// Created by 陳其駿 on 5/20/18.
 //
 
-#ifndef CONCURRENT_TOOLKITS_CPP_TEST_AND_TEST_AND_SET_LOCK_H
-#define CONCURRENT_TOOLKITS_CPP_TEST_AND_TEST_AND_SET_LOCK_H
+#ifndef CONCURRENT_TOOLKITS_CPP_TATAS_EXP_LOCK_HPP
+#define CONCURRENT_TOOLKITS_CPP_TATAS_EXP_LOCK_HPP
 
 #include <atomic>
+#include <ctime>
 
-namespace centralized_locks {
+#include "Misc.hpp"
+
+namespace scalable_locks {
 
     class Test_and_test_and_set_lock {
     private:
         std::atomic<bool> f{};
+        const int base = 1;
+        const int limit = 100000;
+        const int multiplier = 2;
 
     public:
         Test_and_test_and_set_lock() : f(false) {}
 
         void lock() {
+            int delay = base;
             while (f.exchange(true, std::memory_order_acquire)) {
                 while(f.load(std::memory_order_relaxed));
+                timespec ts = {0, delay};
+                nanosleep(&ts, nullptr);
+                delay = MIN(delay * multiplier, limit);
             }
         }
 
@@ -30,4 +40,4 @@ namespace centralized_locks {
 
 }
 
-#endif
+#endif //CONCURRENT_TOOLKITS_CPP_TATAS_EXP_LOCK_HPP

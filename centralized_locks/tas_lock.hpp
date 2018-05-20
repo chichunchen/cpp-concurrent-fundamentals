@@ -16,14 +16,12 @@ namespace centralized_locks {
         Test_and_set_lock () : f(false) {}
 
         void lock() {
-            while (f.exchange(true)) ;
-            std::atomic_thread_fence(std::memory_order_release);
+            while (f.exchange(true, std::memory_order_acquire)) ;
         }
 
         void unlock() {
-            f = false;
+            f.store(false, std::memory_order_release);
             // prevents all preceding writes from moving past all subsequent stores.
-            std::atomic_thread_fence(std::memory_order_release);
         }
     };
 }

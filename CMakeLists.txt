@@ -21,7 +21,7 @@ add_executable(concurrent_toolkits_cpp
         tests/lamport_test.cpp
         tests/lamport_test.hpp
         tests/mcs_test.cpp
-        tests/mcs_test.hpp tests/mutex_tas_tatas_ticket.cpp tests/mutex_tas_tatas_ticket.hpp tests/config.h)
+        tests/mcs_test.hpp tests/mutex_tas_tatas_ticket.cpp tests/mutex_tas_tatas_ticket.hpp tests/config.h scalable_locks/tas_exp_lock.hpp scalable_locks/ticket_exp_lock.hpp scalable_locks/tatas_exp_lock.hpp utilities/Misc.hpp)
 
 TARGET_LINK_LIBRARIES(concurrent_toolkits_cpp
         pthread
