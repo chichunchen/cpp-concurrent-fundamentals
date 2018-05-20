@@ -4,17 +4,9 @@
 
 #include "mcs_test.hpp"
 
-#include <iostream>
-#include <thread>
-#include <vector>
-#include <mutex>
-#include "PreciseTimer.hpp"
-#include "../scalable_locks/mcs_lock.h"
-#include "config.h"
-
 using namespace std;
 
-scalable_locks::mcs_lock *mcs_lock;
+scalable_locks::mcs *mcs_lock;
 
 static void test_push_mcs(vector<int> *v, int tid) {
     scalable_locks::_qnode q;
@@ -44,7 +36,7 @@ void mcs_test() {
     timer.start();
     auto *vec = new vector<int>();
     {
-        mcs_lock = new scalable_locks::mcs_lock();
+        mcs_lock = new scalable_locks::mcs();
         for (int i = 0; i < THREAD_NUM; i++) {
             thread_arr[i] = thread(test_push_mcs, vec, i);
         }
@@ -60,7 +52,7 @@ void mcs_test() {
     timer.reset();
     timer.start();
     {
-        mcs_lock = new scalable_locks::mcs_lock();
+        mcs_lock = new scalable_locks::mcs();
         for (int i = 0; i < THREAD_NUM; i++) {
             thread_arr[i] = thread(test_pop_mcs, vec, i);
         }

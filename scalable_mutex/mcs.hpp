@@ -17,12 +17,12 @@ namespace scalable_locks {
         _qnode() : next(nullptr), waiting(false) {};
     };
 
-    class mcs_lock {
+    class mcs {
     private:
         std::atomic<_qnode *> tail;
 
     public:
-        mcs_lock() : tail(nullptr) {}
+        mcs() : tail(nullptr) {}
 
         void lock(_qnode *p) {
             p->next = nullptr;

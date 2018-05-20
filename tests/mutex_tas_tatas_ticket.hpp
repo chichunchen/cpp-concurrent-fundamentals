@@ -11,13 +11,13 @@
 
 #include "config.h"
 #include "PreciseTimer.hpp"
-#include "tas_lock.hpp"
-#include "tatas_lock.hpp"
-#include "ticket_lock.hpp"
+#include "tas.hpp"
+#include "tatas.hpp"
+#include "ticket.hpp"
 
-#include "../scalable_locks/tas_exp_lock.hpp"
-#include "../scalable_locks/tatas_exp_lock.hpp"
-#include "../scalable_locks/ticket_exp_lock.hpp"
+#include "tas_exp.hpp"
+#include "tatas_exp.hpp"
+#include "ticket_exp.hpp"
 
 
 void test_mutex_tas_tatas_ticket_driver();
