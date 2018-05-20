@@ -22,11 +22,7 @@ const int INF = INT_MAX;
 int threadNum = 1;
 bool changed = false;
 
-#ifdef __APPLE__
 centralized_barrier *mybarrier;
-#elif __linux__
-pthread_barrier_t mybarrier;
-#endif
 
 void sssp(SimpleCSRGraphUII g, int tid, int* rounds_ptr) {
     size_t total_nodes = g.num_nodes;
@@ -43,12 +39,7 @@ void sssp(SimpleCSRGraphUII g, int tid, int* rounds_ptr) {
         g.node_wt[i] = (i == src) ? 0 : INF;
     }
 
-//#ifdef __APPLE__
-//    mybarrier->wait(tid);
-//#elif __linux__
-//    pthread_barrier_wait(&mybarrier);
-//#endif
-    mybarrier->wait(tid);
+    mybarrier->wait_scs(tid);
 
     // sssp_round
     for(rounds = 0; rounds < total_nodes - 1; rounds++) {
@@ -83,26 +74,11 @@ void sssp(SimpleCSRGraphUII g, int tid, int* rounds_ptr) {
             }
         }
 
-//#ifdef __APPLE__
-//        mybarrier->wait(tid);
-//#elif __linux__
-//        pthread_barrier_wait(&mybarrier);
-//#endif
-        mybarrier->wait(tid);
+        mybarrier->wait_scs(tid);
         if(!changed) break;
-//#ifdef __APPLE__
-//        mybarrier->wait(tid);
-//#elif __linux__
-//        pthread_barrier_wait(&mybarrier);
-//#endif
-        mybarrier->wait(tid);
+        mybarrier->wait_scs(tid);
         changed = false;
-//#ifdef __APPLE__
-//        mybarrier->wait(tid);
-//#elif __linux__
-//        pthread_barrier_wait(&mybarrier);
-//#endif
-        mybarrier->wait(tid);
+        mybarrier->wait_scs(tid);
     }
 
     if (tid == 0) *rounds_ptr = rounds;
