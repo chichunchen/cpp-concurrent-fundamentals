@@ -8,11 +8,11 @@
 #include <vector>
 #include <thread>
 #include "config.h"
-#include "PreciseTimer.h"
+#include "PreciseTimer.hpp"
 #include <mutex>
-#include "tas_lock.h"
-#include "tatas_lock.h"
-#include "ticket_lock.h"
+#include "tas_lock.hpp"
+#include "tatas_lock.hpp"
+#include "ticket_lock.hpp"
 
 
 void test_mutex_tas_tatas_ticket_driver();

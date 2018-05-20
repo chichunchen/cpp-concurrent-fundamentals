@@ -11,9 +11,9 @@
 #include <thread>
 #include <vector>
 #include <mutex>
-#include "lamport_bakery.h"
-#include "lamport_fast.h"
-#include "PreciseTimer.h"
+#include "lamport_bakery.hpp"
+#include "lamport_fast.hpp"
+#include "PreciseTimer.hpp"
 #include "config.h"
 
 void lamport_test_driver();

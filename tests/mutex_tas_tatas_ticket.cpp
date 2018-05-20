@@ -2,7 +2,7 @@
 // Created by 陳其駿 on 5/19/18.
 //
 
-#include "mutex_tas_tatas_ticket.h"
+#include "mutex_tas_tatas_ticket.hpp"
 
 template <class lock>
 static void test_push(std::vector<int> *v, lock *vec_mutex_lock) {

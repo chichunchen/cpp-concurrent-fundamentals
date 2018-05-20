@@ -2,13 +2,13 @@
 // Created by 陳其駿 on 5/16/18.
 //
 
-#include "mcs_test.h"
+#include "mcs_test.hpp"
 
 #include <iostream>
 #include <thread>
 #include <vector>
 #include <mutex>
-#include "PreciseTimer.h"
+#include "PreciseTimer.hpp"
 #include "../scalable_locks/mcs_lock.h"
 #include "config.h"
 

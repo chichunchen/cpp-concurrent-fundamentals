@@ -10,18 +10,18 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 
 add_executable(concurrent_toolkits_cpp
-        centralized_locks/lamport_bakery.h
-        centralized_locks/tas_lock.h
-        centralized_locks/tatas_lock.h
-        centralized_locks/ticket_lock.h
-        centralized_locks/lamport_fast.h
+        centralized_locks/lamport_bakery.hpp
+        centralized_locks/tas_lock.hpp
+        centralized_locks/tatas_lock.hpp
+        centralized_locks/ticket_lock.hpp
+        centralized_locks/lamport_fast.hpp
         scalable_locks/mcs_lock.h
-        utilities/PreciseTimer.h
+        utilities/PreciseTimer.hpp
         tests/tests.cpp
         tests/lamport_test.cpp
-        tests/lamport_test.h
+        tests/lamport_test.hpp
         tests/mcs_test.cpp
-        tests/mcs_test.h tests/mutex_tas_tatas_ticket.cpp tests/mutex_tas_tatas_ticket.h tests/config.h)
+        tests/mcs_test.hpp tests/mutex_tas_tatas_ticket.cpp tests/mutex_tas_tatas_ticket.hpp tests/config.h)
 
 TARGET_LINK_LIBRARIES(concurrent_toolkits_cpp
         pthread

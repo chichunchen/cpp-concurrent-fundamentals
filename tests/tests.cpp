@@ -2,9 +2,9 @@
 #include <thread>
 #include <vector>
 
-#include "lamport_test.h"
-#include "mcs_test.h"
-#include "mutex_tas_tatas_ticket.h"
+#include "lamport_test.hpp"
+#include "mcs_test.hpp"
+#include "mutex_tas_tatas_ticket.hpp"
 
 using namespace std;
 

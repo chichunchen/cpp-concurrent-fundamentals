@@ -2,7 +2,7 @@
 // Created by 陳其駿 on 5/15/18.
 //
 
-#include "lamport_test.h"
+#include "lamport_test.hpp"
 #include <algorithm>
 #include <functional>
 
