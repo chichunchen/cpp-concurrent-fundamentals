@@ -1,0 +1,27 @@
+[
+{
+  "directory": "/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/cmake-build-debug",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   -I/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/centralized_mutex -I/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/scalable_mutex -I/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/rwlock -I/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/ds -I/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/utilities  -g   -std=gnu++1z -o CMakeFiles/concurrent_toolkits_cpp.dir/tests/tests.cpp.o -c /Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/tests/tests.cpp",
+  "file": "/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/tests/tests.cpp"
+},
+{
+  "directory": "/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/cmake-build-debug",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   -I/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/centralized_mutex -I/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/scalable_mutex -I/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/rwlock -I/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/ds -I/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/utilities  -g   -std=gnu++1z -o CMakeFiles/concurrent_toolkits_cpp.dir/tests/lamport_test.cpp.o -c /Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/tests/lamport_test.cpp",
+  "file": "/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/tests/lamport_test.cpp"
+},
+{
+  "directory": "/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/cmake-build-debug",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   -I/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/centralized_mutex -I/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/scalable_mutex -I/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/rwlock -I/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/ds -I/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/utilities  -g   -std=gnu++1z -o CMakeFiles/concurrent_toolkits_cpp.dir/tests/mcs_test.cpp.o -c /Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/tests/mcs_test.cpp",
+  "file": "/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/tests/mcs_test.cpp"
+},
+{
+  "directory": "/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/cmake-build-debug",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   -I/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/centralized_mutex -I/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/scalable_mutex -I/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/rwlock -I/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/ds -I/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/utilities  -g   -std=gnu++1z -o CMakeFiles/concurrent_toolkits_cpp.dir/tests/mutex_tas_tatas_ticket.cpp.o -c /Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/tests/mutex_tas_tatas_ticket.cpp",
+  "file": "/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/tests/mutex_tas_tatas_ticket.cpp"
+},
+{
+  "directory": "/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/cmake-build-debug",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   -I/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/centralized_mutex -I/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/scalable_mutex -I/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/rwlock -I/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/ds -I/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/utilities  -g   -std=gnu++1z -o CMakeFiles/concurrent_toolkits_cpp.dir/tests/stack_test.cpp.o -c /Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/tests/stack_test.cpp",
+  "file": "/Users/chichunchen/CLionProjects/cpp-concurrent-toolkits/tests/stack_test.cpp"
+}
+]

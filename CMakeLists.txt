@@ -10,6 +10,8 @@ include_directories(ds)
 include_directories(utilities)
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 find_package(Threads REQUIRED)
 
 add_executable(concurrent_toolkits_cpp
@@ -32,7 +34,12 @@ add_executable(concurrent_toolkits_cpp
         scalable_mutex/ticket_exp.hpp
         scalable_mutex/tatas_exp.hpp
         utilities/Misc.hpp
-        rwlock/rw_reader_pref.hpp)
+        rwlock/rw_reader_pref.hpp
+        ds/msqueue.hpp
+        ds/stack.hpp
+        ds/stack.tpp
+        tests/stack_test.cpp
+        tests/stack_test.hpp)
 
 TARGET_LINK_LIBRARIES(concurrent_toolkits_cpp
         pthread
