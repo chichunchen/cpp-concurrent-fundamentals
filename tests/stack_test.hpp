@@ -11,6 +11,6 @@
 #include "PreciseTimer.hpp"
 #include "config.h"
 
-void lockfree_stack_test();
+void lockfree_stack_test_driver();
 
 #endif //CONCURRENT_TOOLKITS_CPP_STACK_TEST_H

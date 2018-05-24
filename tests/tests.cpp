@@ -17,7 +17,7 @@ void lock_tests() {
 }
 
 void concurrent_ds_tests() {
-    lockfree_stack_test();
+    lockfree_stack_test_driver();
 }
 
 int main() {
