@@ -7,6 +7,7 @@
 
 #include <atomic>
 #include <thread>
+#include <functional>
 
 namespace lockfree_ds {
 
