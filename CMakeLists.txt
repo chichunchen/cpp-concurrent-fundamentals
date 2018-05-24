@@ -46,7 +46,8 @@ add_executable(concurrent_toolkits_cpp
         )
 
 TARGET_LINK_LIBRARIES(concurrent_toolkits_cpp
-        pthread
+	pthread
+	atomic
         )
 
 #set(CMAKE_BUILD_TYPE Release)

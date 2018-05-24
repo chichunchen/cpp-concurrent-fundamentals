@@ -46,10 +46,12 @@ The benchmark is run on `Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz` with 32 core
 
 - lockfree stack
 ```
-[lockfree_ds::stack_no_free] elapsed 0.115047s
-[lockfree_ds::stack_no_free] elapsed 0.183376s
-[lockfree_ds::stack_with_hp] elapsed 0.115342s
-[lockfree_ds::stack_with_hp] elapsed 0.321929s
+[lockfree_ds::stack_no_free] elapsed 0.498095s
+[lockfree_ds::stack_no_free] elapsed 0.615507s
+[lockfree_ds::stack_with_hp] elapsed 0.510303s
+[lockfree_ds::stack_with_hp] elapsed 1.18426s
+[lockfree_ds::msqueue] elapsed 2.87611s
+[lockfree_ds::msqueue] elapsed 2.93951s
 ```
 
 ## Reference
