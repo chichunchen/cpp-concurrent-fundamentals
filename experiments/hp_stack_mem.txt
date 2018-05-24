@@ -1,0 +1,16 @@
+==3911== Memcheck, a memory error detector
+==3911== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==3911== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==3911== Command: ./concurrent_toolkits_cpp
+==3911== 
+[lockfree_stack_test] elapsed 2.17783s
+[lockfree_stack_test] elapsed 4.54245s
+==3911== 
+==3911== HEAP SUMMARY:
+==3911==     in use at exit: 0 bytes in 0 blocks
+==3911==   total heap usage: 200,500 allocs, 200,500 frees, 4,950,116 bytes allocated
+==3911== 
+==3911== All heap blocks were freed -- no leaks are possible
+==3911== 
+==3911== For counts of detected and suppressed errors, rerun with: -v
+==3911== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
