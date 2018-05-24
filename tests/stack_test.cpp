@@ -3,16 +3,17 @@
 //
 
 #include "stack_test.hpp"
+#include "stack_with_hp.hpp"
 
 using namespace std;
 
-static void test_push_stack(lockfree_ds::stack<int> *v, int tid) {
+static void test_push_stack(lockfree_ds::stack_with_hp<int> *v, int tid) {
     for (int i = 0; i < NODE_NUM; i++) {
         v->push(i);
     }
 }
 
-static void test_pop_stack(lockfree_ds::stack<int> *v, int tid) {
+static void test_pop_stack(lockfree_ds::stack_with_hp<int> *v, int tid) {
     for (int i = 0; i < NODE_NUM; i++) {
         v->pop();
     }
@@ -23,7 +24,7 @@ void lockfree_stack_test() {
     auto timer = PreciseTimer("lockfree_stack_test");
 
     timer.start();
-    auto * stack = new lockfree_ds::stack<int>();
+    auto * stack = new lockfree_ds::stack_with_hp<int>();
     {
         for (int i = 0; i < THREAD_NUM; i++) {
             thread_arr[i] = thread(test_push_stack, stack, i);

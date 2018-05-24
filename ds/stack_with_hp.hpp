@@ -2,8 +2,8 @@
 // Created by 陳其駿 on 2018/5/21.
 //
 
-#ifndef CONCURRENT_TOOLKITS_CPP_LOCKFREE_STACK_H
-#define CONCURRENT_TOOLKITS_CPP_LOCKFREE_STACK_H
+#ifndef CONCURRENT_TOOLKITS_CPP_LOCKFREE_HP_STACK_HPP
+#define CONCURRENT_TOOLKITS_CPP_LOCKFREE_HP_STACK_HPP
 
 #include <atomic>
 #include <memory>
@@ -11,7 +11,7 @@
 namespace lockfree_ds {
 
     template<typename T>
-    class stack {
+    class stack_with_hp {
     private:
         struct node {
             std::shared_ptr<T> data;
@@ -38,6 +38,6 @@ namespace lockfree_ds {
     };
 }
 
-#include "stack.tpp"
+#include "stack_with_hp.tpp"
 
-#endif //CONCURRENT_TOOLKITS_CPP_LOCKFREE_STACK_H
+#endif //CONCURRENT_TOOLKITS_CPP_LOCKFREE_STACK_HPP

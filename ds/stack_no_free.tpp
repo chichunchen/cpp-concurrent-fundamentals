@@ -1,8 +1,11 @@
 //
-// Created by 陳其駿 on 2018/5/23.
+// Created by 陳其駿 on 2018/5/24.
 //
 
-#include "stack.hpp"
+#ifndef CONCURRENT_TOOLKITS_CPP_STACK_NO_FREE_TPP
+#define CONCURRENT_TOOLKITS_CPP_STACK_NO_FREE_TPP
+
+#include "stack_no_free.hpp"
 
 namespace lockfree_ds {
 
@@ -23,3 +26,6 @@ namespace lockfree_ds {
         return old_head ? old_head->data : std::shared_ptr<T>();
     }
 }
+
+
+#endif //CONCURRENT_TOOLKITS_CPP_STACK_NO_FREE_TPP

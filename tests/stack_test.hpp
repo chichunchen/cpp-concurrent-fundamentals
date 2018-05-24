@@ -10,7 +10,6 @@
 
 #include "PreciseTimer.hpp"
 #include "config.h"
-#include "stack.hpp"
 
 void lockfree_stack_test();
 

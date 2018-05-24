@@ -21,25 +21,29 @@ add_executable(concurrent_toolkits_cpp
         centralized_mutex/ticket.hpp
         centralized_mutex/lamport_fast.hpp
         scalable_mutex/mcs.hpp
+        scalable_mutex/tas_exp.hpp
+        scalable_mutex/ticket_exp.hpp
+        scalable_mutex/tatas_exp.hpp
+        rwlock/rw_reader_pref.hpp
+        ds/hazard_pointer.hpp
+        ds/msqueue.hpp
+        ds/stack_no_free.hpp
+        ds/stack_no_free.tpp
+        ds/stack_with_hp.hpp
+        ds/stack_with_hp.tpp
         utilities/PreciseTimer.hpp
-        tests/tests.cpp
+        utilities/Misc.hpp
+        tests/config.h
         tests/lamport_test.cpp
         tests/lamport_test.hpp
         tests/mcs_test.cpp
         tests/mcs_test.hpp
         tests/mutex_tas_tatas_ticket.cpp
         tests/mutex_tas_tatas_ticket.hpp
-        tests/config.h
-        scalable_mutex/tas_exp.hpp
-        scalable_mutex/ticket_exp.hpp
-        scalable_mutex/tatas_exp.hpp
-        utilities/Misc.hpp
-        rwlock/rw_reader_pref.hpp
-        ds/msqueue.hpp
-        ds/stack.hpp
-        ds/stack.tpp
         tests/stack_test.cpp
-        tests/stack_test.hpp)
+        tests/stack_test.hpp
+        tests/tests.cpp
+        )
 
 TARGET_LINK_LIBRARIES(concurrent_toolkits_cpp
         pthread
