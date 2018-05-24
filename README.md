@@ -44,7 +44,18 @@ The benchmark is run on `Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz` with 32 core
 [mcs_test] elapsed 261.17s
 ```
 
+- lockfree stack
+```
+[lockfree_ds::stack_no_free] elapsed 0.115047s
+[lockfree_ds::stack_no_free] elapsed 0.183376s
+[lockfree_ds::stack_with_hp] elapsed 0.115342s
+[lockfree_ds::stack_with_hp] elapsed 0.321929s
+```
+
 ## Reference
 - [Shared Memory Synchronization](https://www.morganclaypool.com/doi/abs/10.2200/S00499ED1V01Y201304CAC023)
 - [csc458](https://www.cs.rochester.edu/u/sree/courses/csc-258/spring-2018/)
 - [CPlusPlus Concurrency in Action](https://www.manning.com/books/c-plus-plus-concurrency-in-action-second-edition)
+- [Hazard pointers: safe memory reclamation for lock-free objects](https://ieeexplore.ieee.org/abstract/document/1291819/)
+- [Lock-freedom without garbage collection](https://aturon.github.io/blog/2015/08/27/epoch/)
+- [fearless-concurrency-with-hazard-pointers](http://ticki.github.io/blog/fearless-concurrency-with-hazard-pointers/)
