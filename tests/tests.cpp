@@ -5,7 +5,7 @@
 #include "lamport_test.hpp"
 #include "mcs_test.hpp"
 #include "mutex_tas_tatas_ticket.hpp"
-#include "stack_test.hpp"
+#include "ds_test.hpp"
 
 using namespace std;
 

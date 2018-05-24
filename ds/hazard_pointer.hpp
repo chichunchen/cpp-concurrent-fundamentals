@@ -30,12 +30,12 @@ namespace lockfree_ds {
 
         hp_owner() : hp(nullptr) {
             // search if an entry without an owner
-            for (unsigned i = 0; i < max_hazard_pointers; ++i) {
+            for (auto &hazard_pointer : hazard_pointers) {
                 std::thread::id old_id;
-                if (hazard_pointers[i].id.compare_exchange_strong(
+                if (hazard_pointer.id.compare_exchange_strong(
                         old_id, std::this_thread::get_id()
                 )) {
-                    hp = &hazard_pointers[i];
+                    hp = &hazard_pointer;
                     break;
                 }
             }
@@ -60,8 +60,8 @@ namespace lockfree_ds {
     }
 
     bool outstanding_hazard_pointers_for(void *p) {
-        for (unsigned i = 0; i < max_hazard_pointers; ++i) {
-            if (hazard_pointers[i].pointer.load() == p) {
+        for (auto &hazard_pointer : hazard_pointers) {
+            if (hazard_pointer.pointer.load() == p) {
                 return true;
             }
         }
@@ -79,7 +79,7 @@ namespace lockfree_ds {
         data_to_reclaim *next;
 
         template<typename T>
-        data_to_reclaim(T *p): data(p), deleter(&do_delete<T>), next(0) {}
+        explicit data_to_reclaim(T *p): data(p), deleter(&do_delete<T>), next(0) {}
 
         ~data_to_reclaim() {
             deleter(data);

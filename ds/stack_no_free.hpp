@@ -2,12 +2,6 @@
 // Created by 陳其駿 on 2018/5/24.
 //
 
-#include "stack_no_free.tpp"
-
-//
-// Created by 陳其駿 on 2018/5/21.
-//
-
 #ifndef CONCURRENT_TOOLKITS_CPP_STACK_NO_FREE_HPP
 #define CONCURRENT_TOOLKITS_CPP_STACK_NO_FREE_HPP
 

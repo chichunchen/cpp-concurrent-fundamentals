@@ -1,3 +1,10 @@
+//
+// Created by 陳其駿 on 2018/5/24.
+//
+
+#ifndef CONCURRENT_TOOLKITS_CPP_MSQUEUE
+#define CONCURRENT_TOOLKITS_CPP_MSQUEUE
+
 #include <iostream>
 #include <atomic>
 
@@ -31,16 +38,17 @@ namespace lockfree_ds {
             node() : next(ptr()) {}
 
             // normal node
-            node(T value) : val(value), next(ptr()) {}
+            explicit node(T value) : val(value), next(ptr()) {}
         };
 
         std::atomic<ptr> head;
         std::atomic<ptr> tail;
+        std::atomic<int> counter;
     public:
-        msqueue() : head(new node()), tail(head.load()) {}
+        msqueue() : head(new node()), tail(head.load()), counter(0) {}
 
-        int enqueue(T value) {
-            node *w = new node(value);
+        int push(T const &data) {
+            auto *w = new node(data);
             ptr t, n;
             while (true) {
                 t = tail.load();
@@ -56,10 +64,12 @@ namespace lockfree_ds {
                 }
             }
             tail.compare_exchange_weak(t, ptr(w, t.count + 1));
+            counter.fetch_add(1);
             return 1;
         }
 
-        int dequeue(T &rtn) {
+        T pop() {
+            T rtn;
             ptr h, t, n;
 
             while (true) {
@@ -73,7 +83,7 @@ namespace lockfree_ds {
                         }
                         tail.compare_exchange_weak(t, ptr(n.p, t.count + 1));
                     } else {
-                        // read value before CAS; otherwise another dequeue might free n
+                        // read value before CAS; otherwise another pop might free n
                         rtn = n.p->val;
                         if (head.compare_exchange_weak(h, ptr(n.p, h.count + 1))) {
                             break;
@@ -84,8 +94,17 @@ namespace lockfree_ds {
 
             // fence(W||W)
             // TODO free_for_reuse (hazard pointer or other memory reclamation technique
-            free(h.p);
-            return 1;
+            // free(h.p);
+            counter.fetch_sub(1);
+            return rtn;
+        }
+
+        int size() {
+            return counter;
+        }
+
+        bool empty() {
+            return counter == 0;
         }
 
         // non-concurrent call
@@ -99,3 +118,5 @@ namespace lockfree_ds {
     };
 
 }
+
+#endif

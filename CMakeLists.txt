@@ -40,8 +40,8 @@ add_executable(concurrent_toolkits_cpp
         tests/mcs_test.hpp
         tests/mutex_tas_tatas_ticket.cpp
         tests/mutex_tas_tatas_ticket.hpp
-        tests/stack_test.cpp
-        tests/stack_test.hpp
+        tests/ds_test.cpp
+        tests/ds_test.hpp
         tests/tests.cpp
         )
 
