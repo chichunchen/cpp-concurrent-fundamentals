@@ -26,7 +26,7 @@ add_executable(concurrent_toolkits_cpp
         scalable_mutex/tatas_exp.hpp
         rwlock/rw_reader_pref.hpp
         ds/hazard_pointer.hpp
-        ds/msqueue_no_free.hpp
+        ds/msqueue_with_hp.hpp
         ds/treiber_stack_no_free.hpp
         ds/treiber_stack_no_free.tpp
         ds/treiber_stack_with_hp.hpp
