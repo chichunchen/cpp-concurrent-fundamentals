@@ -11,7 +11,7 @@
 namespace lockfree_ds {
 
     template<typename T>
-    class stack_no_free {
+    class treiber_stack_no_free {
     private:
         struct node {
             std::shared_ptr<T> data;

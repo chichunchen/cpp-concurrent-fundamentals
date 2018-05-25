@@ -5,13 +5,13 @@
 #ifndef CONCURRENT_TOOLKITS_CPP_LOCKFREE_STACK_TPP
 #define CONCURRENT_TOOLKITS_CPP_LOCKFREE_STACK_TPP
 
-#include "stack_with_hp.hpp"
+#include "treiber_stack_with_hp.hpp"
 #include "hazard_pointer.hpp"
 
 namespace lockfree_ds {
 
     template<typename T>
-    void stack_with_hp<T>::push(T const &data) {
+    void treiber_stack_with_hp<T>::push(T const &data) {
         node *const new_node = new node(data);
         new_node->next = head.load();
         while (!head.compare_exchange_weak(new_node->next, new_node));
@@ -19,12 +19,13 @@ namespace lockfree_ds {
     }
 
     template<typename T>
-    std::shared_ptr<T> stack_with_hp<T>::pop() {
+    std::shared_ptr<T> treiber_stack_with_hp<T>::pop() {
         std::atomic<void *> &hp = get_hazard_pointer_for_current_thread();
         node *old_head = head.load();
         node *temp;
         do {
-            // loop until set the hazard pointer to head
+            // this loop ensures the node hasn't been deleted between the
+            // reading of the old_head and the setting of the hazard pointer
             do {
                 temp = old_head;
                 // update hp for the new head just loaded

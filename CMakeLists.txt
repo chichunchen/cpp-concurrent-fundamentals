@@ -26,11 +26,11 @@ add_executable(concurrent_toolkits_cpp
         scalable_mutex/tatas_exp.hpp
         rwlock/rw_reader_pref.hpp
         ds/hazard_pointer.hpp
-        ds/msqueue.hpp
-        ds/stack_no_free.hpp
-        ds/stack_no_free.tpp
-        ds/stack_with_hp.hpp
-        ds/stack_with_hp.tpp
+        ds/msqueue_no_free.hpp
+        ds/treiber_stack_no_free.hpp
+        ds/treiber_stack_no_free.tpp
+        ds/treiber_stack_with_hp.hpp
+        ds/treiber_stack_with_hp.tpp
         utilities/PreciseTimer.hpp
         utilities/Misc.hpp
         tests/config.h
@@ -45,10 +45,12 @@ add_executable(concurrent_toolkits_cpp
         tests/tests.cpp
         )
 
-TARGET_LINK_LIBRARIES(concurrent_toolkits_cpp
-	pthread
-	atomic
-        )
+if (UNIX AND NOT APPLE)
+    TARGET_LINK_LIBRARIES(concurrent_toolkits_cpp
+            pthread
+            atomic
+            )
+endif ()
 
 #set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_BUILD_TYPE Debug)

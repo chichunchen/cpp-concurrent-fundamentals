@@ -31,14 +31,14 @@ namespace lockfree_ds {
         };
 
         struct node {
-            T val;
+            std::shared_ptr<T> data;
             std::atomic<ptr> next;
 
             // dummy node
             node() : next(ptr()) {}
 
             // normal node
-            explicit node(T value) : val(value), next(ptr()) {}
+            explicit node(T const &value) : data(std::make_shared<T>(value)), next(ptr()) {}
         };
 
         std::atomic<ptr> head;
@@ -47,7 +47,11 @@ namespace lockfree_ds {
     public:
         msqueue() : head(new node()), tail(head.load()), counter(0) {}
 
-        int push(T const &data) {
+        /**
+         * Push an element onto the queue
+         * @param data
+         */
+        void push(T const &data) {
             auto *w = new node(data);
             ptr t, n;
             while (true) {
@@ -65,11 +69,14 @@ namespace lockfree_ds {
             }
             tail.compare_exchange_weak(t, ptr(w, t.count + 1));
             counter.fetch_add(1);
-            return 1;
         }
 
-        T pop() {
-            T rtn;
+        /**
+         * Pop the element in the front from the queue
+         * @return a shared pointer that points to the removed element
+         */
+        std::shared_ptr<T> pop() {
+            std::shared_ptr<T> rtn;
             ptr h, t, n;
 
             while (true) {
@@ -84,7 +91,7 @@ namespace lockfree_ds {
                         tail.compare_exchange_weak(t, ptr(n.p, t.count + 1));
                     } else {
                         // read value before CAS; otherwise another pop might free n
-                        rtn = n.p->val;
+                        rtn.swap(n.p->data);
                         if (head.compare_exchange_weak(h, ptr(n.p, h.count + 1))) {
                             break;
                         }

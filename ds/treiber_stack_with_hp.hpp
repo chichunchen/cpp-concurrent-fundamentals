@@ -11,7 +11,7 @@
 namespace lockfree_ds {
 
     template<typename T>
-    class stack_with_hp {
+    class treiber_stack_with_hp {
     private:
         struct node {
             std::shared_ptr<T> data;
@@ -22,7 +22,6 @@ namespace lockfree_ds {
 
         std::atomic<node *> head;
         std::atomic<size_t> counter;
-
     public:
         void push(T const &data);
 
