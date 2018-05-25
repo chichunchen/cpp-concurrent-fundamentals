@@ -43,7 +43,7 @@ add_executable(concurrent_toolkits_cpp
         tests/ds_test.cpp
         tests/ds_test.hpp
         tests/tests.cpp
-        )
+        ds/msqueue_no_free.hpp)
 
 if (UNIX AND NOT APPLE)
     TARGET_LINK_LIBRARIES(concurrent_toolkits_cpp

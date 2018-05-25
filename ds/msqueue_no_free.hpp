@@ -1,18 +1,18 @@
 //
-// Created by 陳其駿 on 2018/5/24.
+// Created by 陳其駿 on 2018/5/25.
 //
 
-#ifndef CONCURRENT_TOOLKITS_CPP_MSQUEUE
-#define CONCURRENT_TOOLKITS_CPP_MSQUEUE
+#ifndef CONCURRENT_TOOLKITS_CPP_MSQUEUE_NO_FREE_HPP
+#define CONCURRENT_TOOLKITS_CPP_MSQUEUE_NO_FREE_HPP
+
 
 #include <iostream>
 #include <atomic>
-#include "hazard_pointer.hpp"
 
 namespace lockfree_ds {
 
     template<typename T>
-    class msqueue_with_hp {
+    class msqueue_no_free {
     private:
         struct node;
 
@@ -29,34 +29,30 @@ namespace lockfree_ds {
             bool operator==(const ptr &other) const {
                 return p == other.p && count == other.count;
             }
-
-            bool operator!=(const ptr &other) const {
-                return p != other.p || count != other.count;
-            }
         };
 
         struct node {
-            T val;
+            std::shared_ptr<T> data;
             std::atomic<ptr> next;
 
             // dummy node
             node() : next(ptr()) {}
 
             // normal node
-            explicit node(T value) : val(value), next(ptr()) {}
+            explicit node(T const &value) : data(std::make_shared<T>(value)), next(ptr()) {}
         };
 
         std::atomic<ptr> head;
         std::atomic<ptr> tail;
         std::atomic<int> counter;
     public:
-        msqueue_with_hp() : head(new node()), tail(head.load()), counter(0) {}
+        msqueue_no_free() : head(new node()), tail(head.load()), counter(0) {}
 
-        ~msqueue_with_hp() {
-            delete(head.load().p);
-        }
-
-        int push(T const &data) {
+        /**
+         * Push an element onto the queue
+         * @param data
+         */
+        void push(T const &data) {
             auto *w = new node(data);
             ptr t, n;
             while (true) {
@@ -74,14 +70,15 @@ namespace lockfree_ds {
             }
             tail.compare_exchange_weak(t, ptr(w, t.count + 1));
             counter.fetch_add(1);
-            return 1;
         }
 
-        T pop() {
-            T rtn;
+        /**
+         * Pop the element in the front from the queue
+         * @return a shared pointer that points to the removed element
+         */
+        std::shared_ptr<T> pop() {
+            std::shared_ptr<T> rtn;
             ptr h, t, n;
-            std::atomic<void *> &hp = get_hazard_pointer_for_current_thread();
-            node* temp;
 
             while (true) {
                 h = head.load();
@@ -95,29 +92,17 @@ namespace lockfree_ds {
                         tail.compare_exchange_weak(t, ptr(n.p, t.count + 1));
                     } else {
                         // read value before CAS; otherwise another pop might free n
-                        rtn = n.p->val;
-
-                        temp = h.p;
-                        hp.store(h.p);
-                        if (temp != h.p)
-                            continue;
-
-                        if (head.compare_exchange_strong(h, ptr(n.p, h.count + 1))) {
+                        rtn.swap(n.p->data);
+                        if (head.compare_exchange_weak(h, ptr(n.p, h.count + 1))) {
                             break;
                         }
                     }
                 }
             }
 
-            hp.store(nullptr);
-            // check for hazard pointers referencing a node before free it
-            if (outstanding_hazard_pointers_for(h.p)) {
-                reclaim_later(h.p);
-            } else {
-                delete(h.p);
-            }
-            delete_nodes_with_no_hazards();
-
+            // fence(W||W)
+            // TODO free_for_reuse (hazard pointer or other memory reclamation technique
+            // free(h.p);
             counter.fetch_sub(1);
             return rtn;
         }
@@ -142,4 +127,4 @@ namespace lockfree_ds {
 
 }
 
-#endif
+#endif //CONCURRENT_TOOLKITS_CPP_MSQUEUE_NO_FREE_HPP
