@@ -3,9 +3,9 @@
 //
 
 #include "ds_test.hpp"
-#include "stack_no_free.hpp"
-#include "stack_with_hp.hpp"
-#include "msqueue.hpp"
+#include "treiber_stack_no_free.hpp"
+#include "treiber_stack_with_hp.hpp"
+#include "msqueue_no_free.hpp"
 
 using namespace std;
 
@@ -62,7 +62,7 @@ void lockfree_ds_test(const string &name) {
 }
 
 void lockfree_stack_test_driver() {
-    lockfree_ds_test<lockfree_ds::stack_no_free<int>>("lockfree_ds::stack_no_free");
-    lockfree_ds_test<lockfree_ds::stack_with_hp<int>>("lockfree_ds::stack_with_hp");
-    lockfree_ds_test<lockfree_ds::msqueue<int>>("lockfree_ds::msqueue");
+    lockfree_ds_test<lockfree_ds::treiber_stack_no_free<int>>("lockfree_ds::treiber_stack_no_free");
+    lockfree_ds_test<lockfree_ds::treiber_stack_with_hp<int>>("lockfree_ds::treiber_stack_with_hp");
+    lockfree_ds_test<lockfree_ds::msqueue_no_free<int>>("lockfree_ds::msqueue_no_free");
 }

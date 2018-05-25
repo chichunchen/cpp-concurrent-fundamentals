@@ -11,7 +11,7 @@
 namespace lockfree_ds {
 
     template<typename T>
-    class msqueue {
+    class msqueue_no_free {
     private:
         struct node;
 
@@ -45,7 +45,7 @@ namespace lockfree_ds {
         std::atomic<ptr> tail;
         std::atomic<int> counter;
     public:
-        msqueue() : head(new node()), tail(head.load()), counter(0) {}
+        msqueue_no_free() : head(new node()), tail(head.load()), counter(0) {}
 
         /**
          * Push an element onto the queue

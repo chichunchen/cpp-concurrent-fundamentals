@@ -38,6 +38,6 @@ namespace lockfree_ds {
     };
 }
 
-#include "stack_no_free.tpp"
+#include "treiber_stack_no_free.tpp"
 
 #endif //CONCURRENT_TOOLKITS_CPP_STACK_NO_FREE_HPP
