@@ -2,6 +2,30 @@
 Implement concurrent primitives such as locks, barriers, and data structures
  using standard thread library in C++.
  
+## What has be done?
+- locks
+    - centralized locks
+        - lamport bakery lock
+        - lamport fast lock
+        - test and set lock
+        - test and test and set lock
+        - ticket lock
+    - scalable locks
+        - mcs lock
+        - test and set lock with exponential backoff
+        - test and test and set lock with exponential backoff
+        - ticket lock with exponential backoff
+- barrier
+    - reverse sensing barrier
+- ds
+    - msqueue that leaks memory
+    - msqueue using hazard pointer to free memory
+    - triber stack that leaks memory
+    - triber stack using hazard pointer to free memory
+- misc
+    - high precision clock implemented using C++11 chrono
+    - hazard pointer
+
 ## TODO
 - [ ] work stealing queue
 - [ ] ctrie
@@ -64,7 +88,7 @@ The benchmark is run on `Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz` with 32 core
 
 ## Reference
 - [Shared Memory Synchronization](https://www.morganclaypool.com/doi/abs/10.2200/S00499ED1V01Y201304CAC023)
-- [csc458](https://www.cs.rochester.edu/u/sree/courses/csc-258/spring-2018/)
+- [CSC 258/458 Parallel and Distributed Systems](https://www.cs.rochester.edu/u/sree/courses/csc-258/spring-2018/)
 - [CPlusPlus Concurrency in Action](https://www.manning.com/books/c-plus-plus-concurrency-in-action-second-edition)
 - [Hazard pointers: safe memory reclamation for lock-free objects](https://ieeexplore.ieee.org/abstract/document/1291819/)
 - [Lock-freedom without garbage collection](https://aturon.github.io/blog/2015/08/27/epoch/)
