@@ -8,6 +8,8 @@
 #include <atomic>
 #include <memory>
 
+// TODO solve ABA problem
+
 namespace lockfree_ds {
 
     template<typename T>

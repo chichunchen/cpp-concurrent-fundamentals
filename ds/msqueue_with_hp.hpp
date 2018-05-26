@@ -16,7 +16,7 @@ namespace lockfree_ds {
     private:
         struct node;
 
-        struct ptr {
+        struct alignas(16) ptr {
             node *p;
             unsigned int count;
 
@@ -90,7 +90,7 @@ namespace lockfree_ds {
                 if (h == head.load()) {
                     if (h.p == t.p) {
                         if (!n.p) {
-                            return 0;
+                            std::runtime_error("pop from empty msqueue");
                         }
                         tail.compare_exchange_weak(t, ptr(n.p, t.count + 1));
                     } else {

@@ -1,5 +1,11 @@
-# Concurrent Toolkits in CPlusPlus
-Implement concurrent primitives using standard thread library in C++.
+# Concurrent Fundamentals in CPlusPlus
+Implement concurrent primitives such as locks, barriers, and data structures
+ using standard thread library in C++.
+ 
+## TODO
+- [ ] work stealing queue
+- [ ] ctrie
+- [ ] concurrent hash table
 
 ## Usage
 ```
@@ -61,3 +67,5 @@ The benchmark is run on `Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz` with 32 core
 - [Hazard pointers: safe memory reclamation for lock-free objects](https://ieeexplore.ieee.org/abstract/document/1291819/)
 - [Lock-freedom without garbage collection](https://aturon.github.io/blog/2015/08/27/epoch/)
 - [fearless-concurrency-with-hazard-pointers](http://ticki.github.io/blog/fearless-concurrency-with-hazard-pointers/)
+- [concurrencykit](https://github.com/concurrencykit/ck)
+- [cilk](http://supertech.csail.mit.edu/papers/PPoPP95.pdf)

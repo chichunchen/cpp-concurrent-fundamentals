@@ -100,9 +100,6 @@ namespace lockfree_ds {
                 }
             }
 
-            // fence(W||W)
-            // TODO free_for_reuse (hazard pointer or other memory reclamation technique
-            // free(h.p);
             counter.fetch_sub(1);
             return rtn;
         }
