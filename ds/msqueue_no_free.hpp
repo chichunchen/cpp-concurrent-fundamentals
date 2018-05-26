@@ -32,14 +32,14 @@ namespace lockfree_ds {
         };
 
         struct node {
-            std::shared_ptr<T> data;
+            T data;
             std::atomic<ptr> next;
 
             // dummy node
             node() : next(ptr()) {}
 
             // normal node
-            explicit node(T const &value) : data(std::make_shared<T>(value)), next(ptr()) {}
+            explicit node(T const &value) : data(value), next(ptr()) {}
         };
 
         std::atomic<ptr> head;
@@ -73,11 +73,11 @@ namespace lockfree_ds {
         }
 
         /**
-         * Pop the element in the front from the queue
+         * Pop the element in the front from the queue, panic when pop from empty msqueue
          * @return a shared pointer that points to the removed element
          */
-        std::shared_ptr<T> pop() {
-            std::shared_ptr<T> rtn;
+        T pop() {
+            T rtn;
             ptr h, t, n;
 
             while (true) {
@@ -87,12 +87,12 @@ namespace lockfree_ds {
                 if (h == head.load()) {
                     if (h.p == t.p) {
                         if (!n.p) {
-                            return 0;
+                            std::runtime_error("[ERROR]: Pop from empty msqueue");
                         }
                         tail.compare_exchange_weak(t, ptr(n.p, t.count + 1));
                     } else {
                         // read value before CAS; otherwise another pop might free n
-                        rtn.swap(n.p->data);
+                        rtn = n.p->data;
                         if (head.compare_exchange_weak(h, ptr(n.p, h.count + 1))) {
                             break;
                         }

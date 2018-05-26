@@ -18,6 +18,7 @@ static void test_push(DS *v, int tid) {
 }
 
 template<typename DS>
+
 static void test_pop(DS *v, int tid) {
     for (int i = 0; i < NODE_NUM; i++) {
         v->pop();

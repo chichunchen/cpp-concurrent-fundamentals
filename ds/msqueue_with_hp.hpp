@@ -56,7 +56,11 @@ namespace lockfree_ds {
             delete(head.load().p);
         }
 
-        int push(T const &data) {
+        /**
+         * Push an element onto the queue
+         * @param data
+         */
+        void push(T const &data) {
             auto *w = new node(data);
             ptr t, n;
             while (true) {
@@ -74,9 +78,12 @@ namespace lockfree_ds {
             }
             tail.compare_exchange_weak(t, ptr(w, t.count + 1));
             counter.fetch_add(1);
-            return 1;
         }
 
+        /**
+         * Pop the element in the front from the queue, panic when pop from empty msqueue
+         * @return a shared pointer that points to the removed element
+         */
         T pop() {
             T rtn;
             ptr h, t, n;
@@ -90,7 +97,7 @@ namespace lockfree_ds {
                 if (h == head.load()) {
                     if (h.p == t.p) {
                         if (!n.p) {
-                            std::runtime_error("pop from empty msqueue");
+                            std::runtime_error("[ERROR]: Pop from empty msqueue");
                         }
                         tail.compare_exchange_weak(t, ptr(n.p, t.count + 1));
                     } else {
