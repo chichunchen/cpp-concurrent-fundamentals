@@ -63,8 +63,8 @@ void lockfree_ds_test(const string &name) {
 }
 
 void lockfree_stack_test_driver() {
-//    lockfree_ds_test<lockfree_ds::treiber_stack_no_free<int>>("lockfree_ds::treiber_stack_no_free");
-//    lockfree_ds_test<lockfree_ds::treiber_stack_with_hp<int>>("lockfree_ds::treiber_stack_with_hp");
-//    lockfree_ds_test<lockfree_ds::msqueue_no_free<int>>("lockfree_ds::msqueue_no_free");
+    lockfree_ds_test<lockfree_ds::treiber_stack_no_free<int>>("lockfree_ds::treiber_stack_no_free");
+    lockfree_ds_test<lockfree_ds::treiber_stack_with_hp<int>>("lockfree_ds::treiber_stack_with_hp");
+    lockfree_ds_test<lockfree_ds::msqueue_no_free<int>>("lockfree_ds::msqueue_no_free");
     lockfree_ds_test<lockfree_ds::msqueue_with_hp<int>>("lockfree_ds::msqueue_with_hp");
 }
