@@ -27,9 +27,9 @@ Implement concurrent primitives such as locks, barriers, and data structures
     - hazard pointer
 
 ## TODO
-- [ ] work stealing queue
 - [ ] ctrie
 - [ ] concurrent hash table
+- [ ] implement thread
 
 ## Usage
 ```

@@ -52,5 +52,5 @@ fabric.properties
 # Editor-based Rest Client
 .idea/httpRequests
 
-# project-specific
-build/
+**build**
+compile_commands.json
